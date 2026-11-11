@@ -2,16 +2,17 @@
 
 import re
 import urllib.request
-import zipfile  # NEW
+import zipfile
 from pathlib import Path
 
-import numpy as np  # NEW
-import pandas as pd  # NEW
+import numpy as np
+import pandas as pd
 
 DWD_URL = "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/daily/kl/historical/"
 RAW_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
+PROCESSED_DIR = Path(__file__).resolve().parent.parent / "data" / "processed"  # NEW (S4)
 
-# NEW: DWD column codes -> readable names
+# DWD column codes -> readable names
 COLUMN_NAMES = {
     "MESS_DATUM": "date",
     "TMK": "t_mean",
@@ -43,7 +44,6 @@ def download_station_zip(station_id="05404"):
     return target
 
 
-# NEW
 def load_and_clean(zip_path):
     """Read the daily data file inside the zip and return a clean DataFrame."""
     with zipfile.ZipFile(zip_path) as z:
@@ -60,7 +60,17 @@ def load_and_clean(zip_path):
     return df
 
 
+# NEW (S4)
+def save_processed(df, station_id="05404"):
+    """Save the clean DataFrame as a CSV in data/processed/ and return its path."""
+    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+    target = PROCESSED_DIR / f"dwd_{station_id}_daily_clean.csv"
+    df.to_csv(target, index=False)
+    print(f"Saved {len(df)} rows to {target}")
+    return target
+
+
 if __name__ == "__main__":
     zip_path = download_station_zip()
-    df = load_and_clean(zip_path)  # NEW
-    df.info()  # NEW
+    df = load_and_clean(zip_path)
+    save_processed(df)  # NEW (S4)

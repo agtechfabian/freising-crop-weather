@@ -11,3 +11,14 @@ Data: German Weather Service (DWD) daily observations, Weihenstephan station.
 - [ ] Trends calculated and plotted for each indicator
 - [ ] Results summarised in plain language for a farmer
 - [ ] Code reproducible: anyone can run it from requirements.txt
+
+## How to get the data
+
+```
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python src/get_data.py
+```
+
+This downloads the DWD daily climate record for Weihenstephan-Dürnast (station 05404) into `data/raw/` and saves a cleaned table to `data/processed/dwd_05404_daily_clean.csv`.
