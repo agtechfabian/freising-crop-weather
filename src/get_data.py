@@ -1,0 +1,1 @@
+"""Download and clean DWD daily climate data for Weihenstephan (station 05404)."""
