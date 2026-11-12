@@ -8,7 +8,7 @@
 
 ![Four winter wheat weather indicators per season, 1990 to 2025, with a 10-season mean](results/indicators_over_time.png)
 
-Between 1991–2000 and 2016–2025, the winter wheat season at Weihenstephan became about 16% warmer, June days above 30 °C rose from 0.6 to 2.1 per season, and the longest April to June dry spell grew from 11.7 to 15.9 days[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span). Late frost days did not fall (2.3 vs 2.9, driven mostly by the cold April of 2021), and because the crop now reaches its frost-sensitive stages earlier, each spring frost may do more harm[span_6](start_span)[span_6](end_span)[span_7](start_span)[span_7](end_span).
+Between 1991–2000 and 2016–2025, the winter wheat season at Weihenstephan became about 16% warmer, June days above 30 °C rose from 0.6 to 2.1 per season, and the longest April to June dry spell grew from 11.7 to 15.9 days. Late frost days did not fall (2.3 vs 2.9, driven mostly by the cold April of 2021), and because the crop now reaches its frost-sensitive stages earlier, each spring frost may do more harm.
 
 | Indicator (season average)                | 1991–2000 | 2016–2025 | Change                               |
 | :---------------------------------------- | :-------: | :-------: | :----------------------------------- |
@@ -23,15 +23,15 @@ Full numbers: `results/decade_comparison.csv` and `results/season_indicators.csv
 
 - **Source:** Deutscher Wetterdienst (DWD), Climate Data Center, daily climate observations (KL), station 05404 Weihenstephan-Dürnast, Freising.
 - **Licence:** Open data under the DWD terms of use (CC BY 4.0). Source: Deutscher Wetterdienst.
-- **Downloaded:** 2026-11-12 with `python src/get_data.py`[span_8](start_span)[span_8](end_span)[span_9](start_span)[span_9](end_span). The raw data is not stored in this repository; the script fetches it[span_10](start_span)[span_10](end_span).
+- **Downloaded:** 2026-11-12 with `python src/get_data.py`. The raw data is not stored in this repository; the script fetches it.
 
 ## Method
 
-1. Download the station's daily record from DWD and clean it: readable column names, missing values (`−999`) turned into empty cells (`src/get_data.py`)[span_11](start_span)[span_11](end_span).
-2. Split the record into wheat seasons named by harvest year: season 2024 runs from 1 Oct 2023 to 31 Jul 2024[span_12](start_span)[span_12](end_span)[span_13](start_span)[span_13](end_span).
-3. Calculate four indicators per season (`src/indicators.py`, thresholds in `src/config.py`): growing degree days above 0 °C; late frost days in April and May with a minimum at or below −2 °C; June heat days above 30 °C; the longest run of days under 1 mm of rain from April to June[span_14](start_span)[span_14](end_span)[span_15](start_span)[span_15](end_span)[span_16](start_span)[span_16](end_span).
+1. Download the station's daily record from DWD and clean it: readable column names, missing values (`−999`) turned into empty cells (`src/get_data.py`).
+2. Split the record into wheat seasons named by harvest year: season 2024 runs from 1 Oct 2023 to 31 Jul 2024.
+3. Calculate four indicators per season (`src/indicators.py`, thresholds in `src/config.py`): growing degree days above 0 °C; late frost days in April and May with a minimum at or below −2 °C; June heat days above 30 °C; the longest run of days under 1 mm of rain from April to June.
 4. Leave a season out of an indicator if any day in its window is missing, so a gap never looks like "no frost" or "no rain".
-5. Plot every season with a 10-season rolling mean, and compare the averages of 1991–2000 and 2016–2025 (`src/analyse.py`)[span_17](start_span)[span_17](end_span)[span_18](start_span)[span_18](end_span).
+5. Plot every season with a 10-season rolling mean, and compare the averages of 1991–2000 and 2016–2025 (`src/analyse.py`).
 
 ## Limitations
 
