@@ -44,7 +44,6 @@ def late_frost_days(df, harvest_year):
     return int(frost.sum())
 
 
-# NEW (S4)
 def heat_days(df, harvest_year):
     """Number of days around flowering with maximum air temperature above the threshold."""
     window, expected_days = season_window(df, harvest_year, config.HEAT_START, config.HEAT_END)
@@ -54,8 +53,27 @@ def heat_days(df, harvest_year):
     return int(hot.sum())
 
 
+# NEW (S5)
+def longest_dry_spell(df, harvest_year):
+    """Length in days of the longest run of dry days in the drought window."""
+    window, expected_days = season_window(df, harvest_year, config.DRY_START, config.DRY_END)
+    if has_gaps(window, "precip_mm", expected_days):
+        return float("nan")
+    dry = window["precip_mm"] < config.DRY_DAY_MAX_MM
+
+    longest = 0  # longest run found so far
+    current = 0  # length of the run we are in today
+    for is_dry in dry:
+        if is_dry:
+            current += 1
+            longest = max(longest, current)
+        else:
+            current = 0
+    return longest
+
+
 if __name__ == "__main__":
     df = pd.read_csv(PROCESSED_DIR / "dwd_05404_daily_clean.csv", parse_dates=["date"])
-    print("season  gdd  frost_days  heat_days")  # NEW (S4)
+    print("season  gdd  frost_days  heat_days  dry_spell")  # NEW (S5)
     for year in [2004, 2006, 2020, 2021, 2022, 2023, 2024, 2025]:
-        print(year, growing_degree_days(df, year), late_frost_days(df, year), heat_days(df, year))  # NEW (S4)
+        print(year, growing_degree_days(df, year), late_frost_days(df, year), heat_days(df, year), longest_dry_spell(df, year))  # NEW (S5)
