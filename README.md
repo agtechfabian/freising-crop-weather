@@ -61,7 +61,7 @@ The results appear in `results/`. Run `pytest` to check the indicator functions 
 - [x] Results summarised in plain language for a farmer
 - [x] Code reproducible: anyone can run it from requirements.txt
 
-**What comes next (v1.0, January 2027):** add a second DWD station to compare with Weihenstephan, and turn the analysis into a command-line tool any station can be run through.
+**What comes next:** add a second DWD station to compare with Weihenstephan, and turn the analysis into a command-line tool any station can be run through.
 
 ## Licence
 
