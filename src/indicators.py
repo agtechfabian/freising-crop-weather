@@ -35,7 +35,6 @@ def growing_degree_days(df, harvest_year):
     return round(float(daily_gdd.sum()), 1)
 
 
-# NEW (S3)
 def late_frost_days(df, harvest_year):
     """Number of days in the late-frost window with minimum air temperature at or below the threshold."""
     window, expected_days = season_window(df, harvest_year, config.FROST_START, config.FROST_END)
@@ -45,8 +44,18 @@ def late_frost_days(df, harvest_year):
     return int(frost.sum())
 
 
+# NEW (S4)
+def heat_days(df, harvest_year):
+    """Number of days around flowering with maximum air temperature above the threshold."""
+    window, expected_days = season_window(df, harvest_year, config.HEAT_START, config.HEAT_END)
+    if has_gaps(window, "t_max", expected_days):
+        return float("nan")
+    hot = window["t_max"] > config.HEAT_THRESHOLD_C
+    return int(hot.sum())
+
+
 if __name__ == "__main__":
     df = pd.read_csv(PROCESSED_DIR / "dwd_05404_daily_clean.csv", parse_dates=["date"])
-    print("season  gdd  frost_days")  # NEW (S3)
+    print("season  gdd  frost_days  heat_days")  # NEW (S4)
     for year in [2004, 2006, 2020, 2021, 2022, 2023, 2024, 2025]:
-        print(year, growing_degree_days(df, year), late_frost_days(df, year))  # NEW (S3)
+        print(year, growing_degree_days(df, year), late_frost_days(df, year), heat_days(df, year))  # NEW (S4)
