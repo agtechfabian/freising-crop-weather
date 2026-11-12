@@ -7,7 +7,7 @@ and saves the results in results/.
 
 from pathlib import Path
 
-import matplotlib.pyplot as plt  # NEW (S2)
+import matplotlib.pyplot as plt
 import pandas as pd
 
 import config
@@ -24,7 +24,7 @@ RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
 FIRST_SEASON = 1990
 LAST_SEASON = 2025
 
-# NEW (S2): what each indicator column means, for chart titles and axis labels
+# What each indicator column means, for chart titles and axis labels
 INDICATORS = {
     "gdd": ("Growing degree days (Oct to Jul)", "°C days"),
     "frost_days": (f"Late frost days (Apr to May, min ≤ {config.FROST_THRESHOLD_C} °C)", "days"),
@@ -55,7 +55,6 @@ def build_season_table(df, first=FIRST_SEASON, last=LAST_SEASON):
     return pd.DataFrame(rows).set_index("season")
 
 
-# NEW (S2)
 def plot_indicators(table, window=10):
     """Draw each indicator per season with its rolling mean, four panels in one figure."""
     fig, axes = plt.subplots(2, 2, figsize=(12, 8), sharex=True)
@@ -88,6 +87,24 @@ def plot_indicators(table, window=10):
     return target
 
 
+# NEW (S3)
+def compare_decades(table, early=(1991, 2000), late=(2016, 2025)):
+    """Average of each indicator in an early and a late decade, and the change between them."""
+    early_rows = table.loc[early[0]:early[1], list(INDICATORS)]
+    late_rows = table.loc[late[0]:late[1], list(INDICATORS)]
+    early_label = f"{early[0]}-{early[1]}"
+    late_label = f"{late[0]}-{late[1]}"
+    comparison = pd.DataFrame({
+        early_label: early_rows.mean(),       # mean() skips missing seasons
+        late_label: late_rows.mean(),
+        "seasons_used_early": early_rows.count(),  # count() = seasons that have a value
+        "seasons_used_late": late_rows.count(),
+    })
+    comparison["change"] = comparison[late_label] - comparison[early_label]
+    comparison["change_pct"] = 100 * comparison["change"] / comparison[early_label]
+    return comparison.round(1)
+
+
 if __name__ == "__main__":
     df = pd.read_csv(PROCESSED_DIR / "dwd_05404_daily_clean.csv", parse_dates=["date"])
 
@@ -98,5 +115,10 @@ if __name__ == "__main__":
     print(table.to_string())
     print(f"\nSaved {len(table)} seasons to {RESULTS_DIR / 'season_indicators.csv'}")
 
-    chart = plot_indicators(table)  # NEW (S2)
-    print(f"Saved the chart to {chart}")  # NEW (S2)
+    chart = plot_indicators(table)
+    print(f"Saved the chart to {chart}")
+
+    comparison = compare_decades(table)  # NEW (S3)
+    comparison.to_csv(RESULTS_DIR / "decade_comparison.csv")  # NEW (S3)
+    print("\n" + comparison.to_string())  # NEW (S3)
+    print(f"Saved the decade table to {RESULTS_DIR / 'decade_comparison.csv'}")  # NEW (S3)
