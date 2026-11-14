@@ -1,0 +1,69 @@
+station_id,name,status,complete_seasons,complete_early,complete_late,total_missing_days,lat,lon,elevation_m,usable
+00073,Aldersbach-Kramersepp,ok,31,10,6,8,48.6183,13.062,374.0,False
+00125,Altenstadt,ok,0,0,0,10649,47.8342,10.8667,739.0,False
+00142,Altomünster-Pipinsried,ok,34,10,10,1,48.4075,11.2946,495.0,True
+00151,Amberg-Unterammersricht,ok,32,10,7,9,49.4691,11.8546,382.0,True
+00191,Arnstein-Müdesheim,ok,34,10,9,1,49.9694,9.9114,217.0,True
+00217,Attenkam,ok,35,10,10,0,47.8774,11.3643,670.0,True
+00232,Augsburg,ok,33,10,8,5,48.4253,10.9417,462.0,True
+00282,Bamberg,ok,34,10,9,1,49.8743,10.9206,240.0,True
+01103,Ebersberg-Halbing,ok,32,10,8,97,48.1003,11.9872,592.0,True
+01107,Ebrach,ok,34,10,9,1,49.852,10.4991,346.0,True
+01161,Eichstätt-Landershofen,ok,26,9,7,1375,48.8778,11.2349,385.0,True
+01332,"Falkenberg,Kr.Rottal-Inn",ok,34,9,10,181,48.4832,12.7241,471.0,True
+01357,Fichtelberg/Oberfranken-Hüttstadl,ok,34,10,9,1,49.9807,11.8376,655.0,True
+01550,Garmisch-Partenkirchen,ok,29,10,9,14,47.483,11.0621,719.0,True
+05149,Gollhofen,ok,19,1,8,4501,49.5679,10.1969,318.0,False
+01832,Großer Arber,ok,28,10,4,166,49.1129,13.1338,1436.0,False
+00320,Heinersreuth-Vollhof,ok,35,10,10,0,49.9666,11.5198,350.0,True
+02261,Hof,ok,35,10,10,0,50.3123,11.876,565.0,True
+02290,Hohenpeißenberg,ok,35,10,10,0,47.8009,11.0108,977.0,True
+02319,Holzkirchen,ok,34,10,9,6,47.8823,11.6961,685.0,True
+02410,Ingolstadt-Manching,ok,0,0,0,10649,48.7111,11.5363,364.0,False
+02480,Kahl/Main,ok,34,10,10,14,50.0643,8.993,108.0,True
+02559,Kempten,ok,31,10,8,7,47.7233,10.3348,705.0,True
+03679,Kiefersfelden-Gach,ok,25,8,9,1500,47.6187,12.1665,518.0,True
+02597,"Kissingen, Bad",ok,35,10,10,0,50.224,10.0792,282.0,True
+02600,Kitzingen,ok,34,9,10,122,49.7363,10.1781,193.0,True
+02750,Kronach,ok,35,10,10,0,50.2524,11.3209,310.0,True
+02680,"Königshofen, Bad",ok,33,10,9,10,50.284,10.4456,289.0,True
+02700,Kösching,ok,34,10,9,1,48.8302,11.4872,416.0,True
+02773,Kümmersbruck,ok,0,0,0,10649,49.4283,11.9016,416.0,False
+00867,Lautertal-Oberlauter,ok,28,10,9,184,50.3066,10.9679,344.0,True
+02905,Lechfeld,ok,0,0,0,10649,48.1849,10.8507,550.0,False
+03147,Mallersdorf-Pfaffenberg-Oberlindhart,ok,19,9,8,4624,48.7548,12.2118,390.0,True
+03244,Memmingen,ok,34,9,10,31,47.9821,10.1384,614.0,True
+03271,Metten,ok,35,10,10,0,48.8548,12.9189,314.0,True
+03307,Mittenwald-Buckelwiesen,ok,32,10,7,556,47.4814,11.2649,983.0,True
+01279,Möhrendorf-Kleinseebach,ok,34,10,9,1,49.6497,11.0075,268.0,True
+03366,Mühldorf,ok,34,10,9,1,48.279,12.5024,406.0,True
+03379,München-Stadt,ok,35,10,10,0,48.1632,11.5429,515.0,True
+03484,Neuburg an der Donau,ok,0,0,0,10649,48.7085,11.2147,379.0,False
+03534,Neumarkt-Höhenberg,ok,0,0,0,10649,49.2713,11.4881,584.0,False
+03668,Nürnberg,ok,33,10,8,2,49.503,11.0549,314.0,True
+03667,Nürnberg-Netzstall,ok,33,9,9,307,49.4258,11.2539,369.0,True
+03730,Oberstdorf,ok,31,10,7,5,47.3984,10.2759,806.0,True
+03739,Oberviechtach,ok,32,10,7,5,49.4521,12.4365,596.0,True
+03836,Ostheim v.d. Rhön,ok,26,9,8,1551,50.4538,10.2211,314.0,True
+03875,Parsberg/Oberpfalz-Eglwang,ok,28,10,3,12,49.151,11.6897,549.0,False
+04104,Regensburg,ok,35,10,10,0,49.0425,12.1019,365.0,True
+03621,Reimlingen,ok,33,10,8,2,48.8253,10.5066,436.0,True
+04280,Roth,ok,10,0,9,7161,49.2162,11.1035,386.0,False
+04287,Rothenburg ob der Tauber,ok,35,10,10,0,49.3849,10.1732,415.0,True
+13932,Rotthalmünster (Landwirtschaftsamt),ok,0,0,0,10649,48.3617,13.1938,388.0,False
+04354,Saldenburg-Entschenreuth,ok,30,10,5,14,48.7832,13.3146,457.0,False
+04377,Sandberg,ok,35,10,10,0,50.3518,10.0034,518.0,True
+04592,Schwandorf,ok,35,10,10,0,49.3278,12.0871,356.0,True
+04704,Sigmarszell-Zeisertsweiler,ok,33,10,8,112,47.5776,9.7404,508.0,True
+04706,Simbach/Inn,ok,30,10,6,5,48.2718,13.0273,358.0,False
+04911,Straubing,ok,30,6,9,1126,48.8275,12.5597,351.0,False
+05017,Teuschnitz,ok,33,10,9,2,50.4002,11.3888,633.0,True
+05046,Tirschenreuth-Lodermühl,ok,29,10,10,1642,49.8576,12.3542,501.0,True
+05111,Trostberg,ok,29,10,4,9,48.0311,12.5396,560.0,False
+06211,Vogtareuth (Kläranlage),ok,0,0,0,10649,47.955,12.1735,464.0,False
+02573,Waging am See-Schnöbling,ok,0,0,0,10649,47.9588,12.7717,470.0,False
+05397,Weiden,ok,34,10,9,2,49.6662,12.1844,440.0,True
+05404,Weihenstephan-Dürnast,ok,29,10,9,1179,48.4024,11.6946,477.0,True
+05440,Weißenburg-Emetzheim,ok,34,10,9,3,49.0115,10.9308,439.0,True
+05705,Würzburg,ok,35,10,10,0,49.7704,9.9576,268.0,True
+05792,Zugspitze,ok,34,10,9,2,47.421,10.9848,2956.0,True
