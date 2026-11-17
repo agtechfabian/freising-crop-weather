@@ -54,9 +54,9 @@ def test_late_frost_counts_only_april_may_at_or_below_threshold():
 # --- heat_days ----------------------------------------------------------
 
 def test_heat_days_counts_only_june_above_threshold():
-    df = make_weather("2024-01-01", "2024-12-31", t_max=25.0)
-    set_value(df, ["2024-06-16"], "t_max", 31.0)  # above 30 °C in June: counts
-    set_value(df, ["2024-06-15"], "t_max", 30.0)  # exactly 30 °C: not above, no
+    df = make_weather("2024-01-01", "2024-12-31", t_max=20.0)  # NEW: cool base day
+    set_value(df, ["2024-06-16"], "t_max", 26.0)  # NEW: above 25 °C in June: counts
+    set_value(df, ["2024-06-15"], "t_max", 25.0)  # NEW: exactly 25 °C: not above, no
     set_value(df, ["2024-07-01"], "t_max", 35.0)  # after the window: no
     assert heat_days(df, 2024) == 1
 

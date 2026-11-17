@@ -21,7 +21,8 @@ FROST_THRESHOLD_C = -2.0  # air minimum at or below -2 °C can damage ears at bo
 # --- Heat around flowering --------------------------------------------
 HEAT_START = "06-01"     # wheat around Freising usually flowers in early to mid June
 HEAT_END = "06-30"       # covers flowering and the start of grain fill
-HEAT_THRESHOLD_C = 30.0  # above about 30 °C at flowering, pollen fails and fewer grains set
+HEAT_THRESHOLD_C = 25.0  # NEW: lowered from 30 °C on the advice of Prof. Haase (HSWT Plant production), Nov 2026.
+                         # 25 °C is also the DWD's "summer day" mark (Sommertag).
 
 # --- Drought ----------------------------------------------------------
 DRY_START = "04-01"    # April to June is when wheat uses the most water
