@@ -1,93 +1,82 @@
-# Freising Crop-Season Weather Toolkit
+# Frost, Heat and Drought Risk for Winter Wheat in Freising (1990 to 2025)
 
-**Question:** How have frost, heat and drought risk for winter wheat in Freising changed since 1990?
+**Author:** Fabian  
+**Version:** 0.3 (17 November 2026). Heat threshold updated to 25 °C after expert review  
+**Code and Data:** [github.com/agtechfabian/freising-crop-weather](https://github.com/agtechfabian/freising-crop-weather)
 
-**Who cares:** Wheat farmers and advisers around Freising deciding on sowing dates, variety choice and irrigation, and anyone asking how climate change is already showing up in Bavarian fields.
+---
 
-## Result
+## Summary
 
-![Four winter wheat weather indicators per season, 1990 to 2025, with a 10-season mean](results/indicators_over_time.png)
+Between 1991–2000 and 2016–2025, the growing season for winter wheat at Weihenstephan became about **16% warmer**, and heat and drought stress rose clearly.
 
-Between 1991–2000 and 2016–2025, the winter wheat season at Weihenstephan became about 16% warmer, June days above 25 °C rose from 7.1 to 12.5 per season (+76%), and the longest April to June dry spell grew from 11.7 to 15.9 days. Late frost days did not fall (2.3 vs 2.9, driven mostly by the cold April of 2021), and because the crop now reaches its frost-sensitive stages earlier, each spring frost may do more harm.
+- **Heat:** June days above 25 °C went from 7.1 to 12.5 per season (+76%), about five more stressful days around flowering.
+- **Drought:** The longest dry spell between April and June grew by about four days, moving from 11.7 to 15.9 days.
+- **Frost:** Late frost days did not fall (2.3 vs 2.9, a change driven mostly by the cold April of 2021). Because warmer winters push the crop to its frost-sensitive stages earlier, each spring frost may now do more harm.
 
-| Indicator (season average)                | 1991–2000 | 2016–2025 | Change                               |
-| :---------------------------------------- | :-------: | :-------: | :----------------------------------- |
-| Growing degree days, Oct to Jul (°C days) |   2287    |   2649    | +362 (+16%)                          |
-| Late frost days, Apr to May (min ≤ −2 °C) |    2.3    |    2.9    | +0.6 (≈ flat without 2021)           |
-| Heat days, June (max > 25 °C)             |    7.1    |   12.5    | +5.4 days (+76%)                     |
-| Longest dry spell, Apr to Jun (days)      |   11.7    |   15.9    | +4.2 days (9 seasons in late decade) |
+_Key Limitation:_ The indicators use fixed calendar windows rather than the crop's actual growth stages, and the station lacks records from 2005 to 2008.
 
-Full numbers: `results/decade_comparison.csv` and `results/season_indicators.csv`.
+---
 
-## Bavaria-wide (new in v0.2)
+## 1. Question
 
-The same pipeline now runs on **68 long-record DWD stations across Bavaria**. A station gets a change value for an indicator only if it has at least 7 seasons with a value in each decade, which gives 54 to 57 stations per indicator.
+Three kinds of weather hurt winter wheat most: **frost after stem elongation**, **heat at flowering**, and **spring dry spells**. This report addresses the question: _How have frost, heat and drought risk for winter wheat in Freising changed since 1990?_ The answers are vital for farmers making decisions on sowing dates, variety selection, and irrigation management.
 
-- **The warming is everywhere.** Growing degree days rose at all 56 stations with data (median +308 °C days).
-- **Heat at flowering rose most in the low, warm valleys of Franconia, the Upper Palatinate and the Danube.** June heat days rose at 56 of 57 stations (median +6.6 days). The biggest rises were Möhrendorf-Kleinseebach near Erlangen (+10.4, from 7.5 to 17.9 days), Regensburg (+10.0), Kitzingen (+9.8) and Schwandorf (+9.4). High stations barely changed (Großer Arber +0.3, Zugspitze 0), and the lower the station, the bigger the rise (correlation with elevation −0.7).
-- **Spring drought grew most from Lower Franconia through the Altmühl valley.** The longest April to June dry spell grew at 49 of 54 stations (median +2.4 days). The biggest rises were Weißenburg-Emetzheim (+7.9), Altomünster-Pipinsried (+7.4), Bad Königshofen (+7.2) and Eichstätt-Landershofen (+6.8). It shrank slightly at a few stations near the Alps.
-- **The heat and drought hotspots are mostly different places.** Only Kitzingen is in both top 10s.
-- **Freising is in the lower half for the heat rise (rank 37 of 57) and in the upper third for drought (rank 14 of 54).**
+---
 
-Full numbers: `results/bavaria_change.csv` (one row per station, with coordinates). A QGIS map of these changes comes in v1.0.
+## 2. Data
 
-## Data
+Daily climate observations were sourced from the German Weather Service (DWD), station **05404 Weihenstephan-Dürnast**. The data is open under the CC BY 4.0 licence (source: Deutscher Wetterdienst) and was downloaded on 12 November 2026.
 
-- **Source:** Deutscher Wetterdienst (DWD), Climate Data Center, daily climate observations (KL), station 05404 Weihenstephan-Dürnast, Freising.
-- **Licence:** Open data under the DWD terms of use (CC BY 4.0). Source: Deutscher Wetterdienst.
-- **Bavaria:** every DWD daily (KL) station in Bayern with a record from before 1 Oct 1990 to after 31 Jul 2025 (68 stations, list in `results/bavaria_stations.csv`).
-- **Downloaded:** Weihenstephan on 2026-11-12, the Bavarian stations on 2026-11-14. The raw data is not stored in this repository; the scripts fetch it.
+> **Note on Data Gap:** The station has no records from 1 January 2005 to 7 November 2008, meaning seasons 2005 through 2008 are omitted from the analysis.
 
-## Method
+---
 
-1. Download the station's daily record from DWD and clean it: readable column names, missing values (`−999`) turned into empty cells (`src/get_data.py`).
-2. Split the record into wheat seasons named by harvest year: season 2024 runs from 1 Oct 2023 to 31 Jul 2024.
-3. Calculate four indicators per season (`src/indicators.py`, thresholds in `src/config.py`): growing degree days above 0 °C; late frost days in April and May with a minimum at or below −2 °C; June heat days above 25 °C; the longest run of days under 1 mm of rain from April to June. The thresholds were reviewed by Prof. Dr. Thorsten Haase (HSWT, Plant production) in November 2026. On his advice the heat threshold is 25 °C; versions up to v0.2 used 30 °C.
-4. Leave a season out of an indicator if any day in its window is missing, so a gap never looks like "no frost" or "no rain".
-5. Plot every season with a 10-season rolling mean, and compare the averages of 1991–2000 and 2016–2025 (`src/analyse.py`).
-6. For Bavaria: list the long-record stations (`src/stations.py`), download and gap-check each one (`src/bavaria.py`), then run steps 2 to 5 on every station and keep an indicator's change only where both decades have at least 7 seasons (`src/bavaria_indicators.py`). Downloads retry automatically when the DWD server drops the connection.
+## 3. Method
 
-## Limitations
+An agricultural season is named by its harvest year and runs from **1 October to 31 July**. For each season from 1990 to 2025, four key indicators were calculated:
 
-- **Calendar, not crop stage.** The windows are fixed dates. In warmer years the crop reaches stem elongation and flowering earlier, which these indicators can't see.
-- **Station gap.** DWD has no data for this station from 1 Jan 2005 to 7 Nov 2008, so seasons 2005 to 2008 are missing.
-- **Point stations.** Each station stands for its surroundings, not for every field. Bavaria has 68 long-record stations, so whole regions rest on one or two of them.
-- **Missing values.** Three stations never measured any of the four values and drop out. Others lose seasons to gaps, which is why each indicator has a different number of stations.
-- **Ten seasons are few.** One extreme year moves a decade average a lot (2021 for frost). The changes are described, not tested for statistical significance.
-- **Weather risk is not yield.** This shows how often stressful weather happened, not how much yield it cost.
+| Indicator               | Window          | Rule                            | Why                      |
+| :---------------------- | :-------------- | :------------------------------ | :----------------------- |
+| **Growing degree days** | 1 Oct to 31 Jul | Sum of daily mean above 0 °C    | Overall warmth           |
+| **Late frost days**     | 1 Apr to 31 May | Daily minimum ≤ −2 °C           | Damages the exposed ear  |
+| **Heat days**           | 1 to 30 Jun     | Daily maximum > 25 °C           | Heat stress at flowering |
+| **Longest dry spell**   | 1 Apr to 30 Jun | Longest run of days < 1 mm rain | Peak water use           |
 
-## How to reproduce it
+- **Data Integrity:** A season was left out of an indicator if any day in its window was missing, ensuring a data gap never looks like "no frost" or "no rain".
+- **Expert review:** The thresholds were reviewed by Prof. Dr. Thorsten Haase (HSWT, Plant production) in November 2026. He confirmed the season, growing degree day, frost and drought rules, including −2 °C air minimum at 2 m for frost (ground temperature data are hard to obtain). On his advice the heat threshold was lowered from 30 °C (used in v0.1) to 25 °C.
+- **Analysis:** Each indicator was plotted alongside a 10-season rolling mean, comparing the decade averages of 1991–2000 and 2016–2025. The underlying logic is validated by seven automated `pytest` functions.
 
-After making and activating a virtual environment (`python -m venv .venv`, then `.venv\Scripts\activate` on Windows):
+---
 
-```bash
-pip install -r requirements.txt
-python src/get_data.py
-python src/analyse.py
-```
+## 4. Results
 
-For the Bavaria-wide results (downloads about 70 stations, takes 10 to 20 minutes the first time):
+<img src="../results/indicators_over_time.png" width="90%" alt="Four indicators per season with a 10-season rolling mean">
 
-```bash
-python src/stations.py
-python src/bavaria.py
-python src/bavaria_indicators.py
-```
+| Season average                      | 1991–2000 | 2016–2025 | Change                    |
+| :---------------------------------- | :-------: | :-------: | :------------------------ |
+| **Growing degree days** (°C days)   |   2287    |   2649    | +362 (+16%)               |
+| **Late frost days**                 |    2.3    |    2.9    | +0.6 (≈ 2.1 without 2021) |
+| **June heat days** (max > 25 °C)    |    7.1    |   12.5    | +5.4 days (+76%)          |
+| **Longest spring dry spell** (days) |   11.7    |   15.9    | +4.2 days (9 seasons)     |
 
-The results appear in `results/`. Run `pytest` to check the indicator functions (7 tests).
+- **Warmth:** Nine of the last ten seasons recorded more than 2,500 °C days—a threshold reached only once during the 1990s (in 1994). Season 2024 was the warmest on record at 3,011 °C days.
+- **Heat:** In the 1990s, no June had more than 13 days above 25 °C. In 2016–2025, half of the Junes had 14 or more (2017, 2019, 2021, 2022 and 2025), with 18 in 2019. The hottest June in the record remains 2003, with 21 heat days.
+- **Drought:** Spring dry spells lasting three weeks or more occurred only once in the 1990s (1992). In the past decade, they happened three times (2019, 2023, and 2025), with 2019 holding the record at 25 consecutive dry days.
 
-## Done when
+---
 
-- [x] Daily DWD data for Weihenstephan downloaded and cleaned (1990 to today)
-- [x] Frost, heat and drought indicators defined for winter wheat (fixed calendar windows for now)
-- [x] Trends calculated and plotted for each indicator
-- [x] Results summarised in plain language for a farmer
-- [x] Code reproducible: anyone can run it from requirements.txt
+## 5. What It Means for a Farmer
 
-- [x] Same analysis for 68 stations across Bavaria (v0.2)
+Heat and drought around flowering are no longer rare occurrences in Freising. Consequently, **heat-tolerant, earlier-flowering crop varieties** and **water-saving soil management practices** warrant serious attention. Furthermore, late frost risk has not disappeared; because warmer winters cause crops to develop earlier, identical spring frost events now encounter plants at more vulnerable growth stages.
 
-**What comes next (v1.0):** map the Bavarian changes in QGIS, and turn the analysis into a command-line tool any station can be run through.
+---
 
-## Licence
+## 6. Limitations and Next Steps
 
-Code: MIT, see [LICENSE](LICENSE). Data: © Deutscher Wetterdienst, CC BY 4.0.
+- **Fixed Calendar Windows:** The model ignores actual crop growth stages.
+- **Station Limits:** Analysis relies on a single station with a missing data gap from 2005 to 2008.
+- **Statistical Scope:** Ten-season averages fluctuate significantly with a single extreme year, and no formal significance testing was performed.
+- **Weather vs. Yield:** Indicators measure stressful weather events rather than direct crop yield losses.
+
+**Next steps:** The same analysis now runs on 68 DWD stations across Bavaria (see the README). Version 1.0 will map those changes in QGIS and package the logic into a command-line tool capable of processing any station. Future iterations may replace fixed dates with modelled growth stages.
